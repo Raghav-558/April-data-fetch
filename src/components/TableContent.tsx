@@ -3,12 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { TABLE_HEADING_LIST } from "@/utils/helper";
-import {
-  ArrowBottomIcon,
-  ArrowTopIcon,
-  DeleteIcon,
-  SelectArrowIcon,
-} from "@/utils/icons";
+import { ArrowBottomIcon,ArrowTopIcon, DeleteIcon, SelectArrowIcon} from "@/utils/icons";
 
 const ContentPage = ({ contentData = [] }: any) => {
   const [search, setSearch] = useState("");
@@ -26,7 +21,7 @@ const ContentPage = ({ contentData = [] }: any) => {
   }, [contentData, searchParams]);
 
   useEffect(() => {
-    setCurrentPage(1); // Reset to page 1 on search
+    setCurrentPage(1); 
   }, [search]);
 
   const filteredData = data.filter(
@@ -63,7 +58,6 @@ const ContentPage = ({ contentData = [] }: any) => {
   return (
     <div className="w-full">
       <div className="bg-white border border-custom-light-gray text-custom-gray rounded-md pb-6 pt-2.5 w-full max-w-[969px] max-xl:mx-auto table-shadow">
-        {/* Controls */}
         <div className="flex justify-between items-center w-full px-[15px] pb-4 max-md:flex-col max-md:gap-3">
           <div className="flex items-center gap-[10px]">
             <p className="text-sm font-medium leading-[100%] text-custom-black">
@@ -100,10 +94,8 @@ const ContentPage = ({ contentData = [] }: any) => {
             className="w-full max-w-[320px] outline-none py-3 px-4 placeholder:text-custom-black placeholder:text-sm placeholder:font-medium leading-[100%] text-sm font-medium text-custom-black border-[0.8px] border-[#00000033] rounded-full"
           />
         </div>
-
-        {/* Scrollable Table */}
-        <div className="w-full overflow-x-auto">
-          <table className="min-w-[1000px] w-full">
+        <div className="w-full max-xl:overflow-x-auto">
+          <table className="min-w-[969px] w-full">
             <thead>
               <tr className="bg-custom-blue">
                 {TABLE_HEADING_LIST.map((obj, i) => (
@@ -183,8 +175,6 @@ const ContentPage = ({ contentData = [] }: any) => {
           </table>
         </div>
       </div>
-
-      {/* Pagination Controls */}
       <div className="flex items-center lg:justify-end justify-center space-x-2 lg:mt-[33px] mt-7">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}

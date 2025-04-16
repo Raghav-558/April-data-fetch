@@ -2,6 +2,7 @@
 import { CONTACT_LIST, USER_GUIDES_LIST } from "@/utils/helper";
 import { ContactIcon, DeveloperIcon, FaqIcon, SavedIcon } from "@/utils/icons";
 import React from "react";
+import Link from "next/link";
 
 const UserGuides = () => {
   return (
@@ -12,15 +13,18 @@ const UserGuides = () => {
         </p>
         <div className="flex flex-col gap-2 w-full max-xl:flex-row max-xl:flex-wrap">
           {USER_GUIDES_LIST.map((obj, i) => (
-            <div
+            <Link
               key={i}
-              className="flex items-center gap-2.5 py-3 px-3.5 w-full min-w-[251px] bg-gradient-to-r from-[#E7E2FA] to-[#4F02FE00] border-l-2 border-custom-dark-blue"
+              href={obj.link} 
+              passHref
             >
-              <SavedIcon />
-              <p className="text-custom-black text-sm font-medium leading-[100%]">
-                {obj.title}
-              </p>
-            </div>
+              <div className="flex items-center gap-2.5 py-3 px-3.5 w-full min-w-[251px] bg-gradient-to-r from-[#E7E2FA] to-[#4F02FE00] border-l-2 border-custom-dark-blue">
+                <SavedIcon />
+                <p className="text-custom-black text-sm font-medium leading-[100%]">
+                  {obj.title}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -30,15 +34,18 @@ const UserGuides = () => {
         </p>
         <div className="flex flex-col gap-2 w-full">
           {CONTACT_LIST.map((obj, i) => (
-            <div
+            <Link
               key={i}
-              className="w-full min-w-[251px] bg-gradient-to-r from-[#F1E1F3] to-[#CD0CA700] py-3 px-3.5 gap-2.5 flex items-center border-l-2 border-custom-light-purple"
+              href={obj.link} 
+              passHref
             >
-              {i === 0 ? <FaqIcon /> : <ContactIcon />}
-              <p className="text-custom-black text-sm font-medium leading-[100%]">
-                {obj.title}
-              </p>
-            </div>
+              <div className="w-full min-w-[251px] bg-gradient-to-r from-[#F1E1F3] to-[#CD0CA700] py-3 px-3.5 gap-2.5 flex items-center border-l-2 border-custom-light-purple">
+                {i === 0 ? <FaqIcon /> : <ContactIcon />}
+                <p className="text-custom-black text-sm font-medium leading-[100%]">
+                  {obj.title}
+                </p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -46,12 +53,14 @@ const UserGuides = () => {
         <p className="text-xl font-medium leading-[100%] text-custom-black pb-5">
           Others
         </p>
-        <div className="w-full min-w-[251px] bg-gradient-to-r from-[#F1E1F3] to-[#CD0CA700] py-3 px-3.5 gap-2.5 flex items-center border-l-2 border-custom-light-purple">
-          <DeveloperIcon />
-          <p className="text-custom-black text-sm font-medium leading-[100%]">
-            DevSecOps Docs
-          </p>
-        </div>
+        <Link href="/devsecops-docs" passHref>
+          <div className="w-full min-w-[251px] bg-gradient-to-r from-[#F1E1F3] to-[#CD0CA700] py-3 px-3.5 gap-2.5 flex items-center border-l-2 border-custom-light-purple">
+            <DeveloperIcon />
+            <p className="text-custom-black text-sm font-medium leading-[100%]">
+              DevSecOps Docs
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );
