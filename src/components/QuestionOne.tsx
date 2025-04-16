@@ -13,19 +13,16 @@ const QuestionOne = () => {
     const a2 = parseFloat(angle2);
     const a3 = parseFloat(angle3);
 
-    // Validate inputs
     if (isNaN(a1) || isNaN(a2) || isNaN(a3)) {
       setResult("Please enter valid numbers for all angles.");
       return;
     }
 
-    // Check if all angles are positive
     if (a1 <= 0 || a2 <= 0 || a3 <= 0) {
       setResult("All angles must be greater than 0.");
       return;
     }
 
-    // Check if the sum of angles equals 180
     const sum = a1 + a2 + a3;
     if (sum === 180) {
       setResult("The angles form a valid triangle!");
@@ -41,7 +38,7 @@ const QuestionOne = () => {
           Triangle Check
         </h1>
         <div className="mb-4">
-          <label className="block mb-1 font-medium">Angle 1 (°)</label>
+          <label className="block mb-1 font-medium">Angle 1</label>
           <input
             type="number"
             value={angle1}
@@ -51,7 +48,7 @@ const QuestionOne = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-1 font-medium">Angle 2 (°)</label>
+          <label className="block mb-1 font-medium">Angle 2</label>
           <input
             type="number"
             value={angle2}
@@ -61,7 +58,7 @@ const QuestionOne = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-1 font-medium">Angle 3 (°)</label>
+          <label className="block mb-1 font-medium">Angle 3</label>
           <input
             type="number"
             value={angle3}
