@@ -15,7 +15,6 @@ const ContentPage = ({ contentData = [] }: any) => {
   const [data, setData] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const ContentPage = ({ contentData = [] }: any) => {
   }, [contentData, searchParams]);
 
   useEffect(() => {
-    setCurrentPage(1); 
+    setCurrentPage(1); // Reset to page 1 on search
   }, [search]);
 
   const filteredData = data.filter(
@@ -58,13 +57,13 @@ const ContentPage = ({ contentData = [] }: any) => {
     } else {
       params.delete("search");
     }
-
     window.history.pushState(null, "", `?${params.toString()}`);
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="bg-white border border-custom-light-gray text-custom-gray rounded-md pb-6 pt-2.5 w-full max-w-[969px] max-xl:mx-auto table-shadow">
+        {/* Controls */}
         <div className="flex justify-between items-center w-full px-[15px] pb-4 max-md:flex-col max-md:gap-3">
           <div className="flex items-center gap-[10px]">
             <p className="text-sm font-medium leading-[100%] text-custom-black">
@@ -98,18 +97,19 @@ const ContentPage = ({ contentData = [] }: any) => {
             type="text"
             value={search}
             placeholder="Find"
-            className="w-full max-w-[320px] outline-none py-3 px-4 placeholder:text-custom-black placeholder:text-sm placeholder:font-medium placeholder:leading-[100%] leading-[100%] text-sm font-medium text-custom-black border-[0.8px] border-[#00000033] rounded-full"
+            className="w-full max-w-[320px] outline-none py-3 px-4 placeholder:text-custom-black placeholder:text-sm placeholder:font-medium leading-[100%] text-sm font-medium text-custom-black border-[0.8px] border-[#00000033] rounded-full"
           />
         </div>
 
-        <div className="overflow-auto">
-          <table className="w-full">
+        {/* Scrollable Table */}
+        <div className="w-full overflow-x-auto">
+          <table className="min-w-[1000px] w-full">
             <thead>
-              <tr className="flex bg-custom-blue">
+              <tr className="bg-custom-blue">
                 {TABLE_HEADING_LIST.map((obj, i) => (
                   <th
                     key={i}
-                    className={`px-[15px] flex items-center justify-between border-r border-white/20 h-[40px] ${
+                    className={`px-[15px] py-2 border-r border-white/20 text-left ${
                       i === 0
                         ? "min-w-[90px]"
                         : i === 1
@@ -121,74 +121,70 @@ const ContentPage = ({ contentData = [] }: any) => {
                         : "min-w-[260px] border-r-0"
                     }`}
                   >
-                    <p className="text-sm font-medium text-white leading-[100%]">
-                      {obj}
-                    </p>
-                    <div className="flex flex-col items-center gap-[3px]">
-                      <ArrowTopIcon />
-                      <ArrowBottomIcon />
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm font-medium text-white leading-[100%]">
+                        {obj}
+                      </p>
+                      <div className="flex flex-col items-center gap-[3px]">
+                        <ArrowTopIcon />
+                        <ArrowBottomIcon />
+                      </div>
                     </div>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <table>
-                    <tbody>
-                      {paginatedData.map((obj: any, i: number) => (
-                        <tr
-                          key={i}
-                          className="hover:bg-custom-light-red transition-all duration-300"
-                        >
-                          <td className="pl-[15px] py-[10.5px] min-w-[90px]">
-                            <p className="text-xs text-custom-black font-medium leading-[100%]">
-                              {obj.alpha_two_code}
-                            </p>
-                          </td>
-                          <td className="pl-[15px] py-[10.5px] min-w-[235px]">
-                            <Link
-                              href={obj.web_pages}
-                              className="text-xs text-custom-black font-medium leading-[100%]"
-                            >
-                              {obj.web_pages}
-                            </Link>
-                          </td>
-                          <td className="pl-[15px] py-[10.5px] min-w-[200px]">
-                            <Link
-                              href={obj.domains}
-                              className="text-xs text-custom-black font-medium leading-[100%]"
-                            >
-                              {obj.domains}
-                            </Link>
-                          </td>
-                          <td className="pl-[15px] py-[10.5px] min-w-[175px]">
-                            <p className="text-xs text-custom-black font-medium leading-[100%]">
-                              {obj.country}
-                            </p>
-                          </td>
-                          <td className="flex items-center justify-between px-[15px] py-[10.5px] min-w-[267px]">
-                            <p className="text-xs text-custom-black font-medium leading-[100%]">
-                              {obj.name}
-                            </p>
-                            <button
-                              onClick={() => handleDelete(i)}
-                              className="cursor-pointer"
-                            >
-                              <DeleteIcon />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </td>
-              </tr>
+              {paginatedData.map((obj: any, i: number) => (
+                <tr
+                  key={i}
+                  className="hover:bg-custom-light-red transition-all duration-300"
+                >
+                  <td className="pl-[15px] py-[10.5px] min-w-[90px]">
+                    <p className="text-xs text-custom-black font-medium leading-[100%]">
+                      {obj.alpha_two_code}
+                    </p>
+                  </td>
+                  <td className="pl-[15px] py-[10.5px] min-w-[235px]">
+                    <Link
+                      href={obj.web_pages}
+                      className="text-xs text-custom-black font-medium leading-[100%]"
+                    >
+                      {obj.web_pages}
+                    </Link>
+                  </td>
+                  <td className="pl-[15px] py-[10.5px] min-w-[200px]">
+                    <Link
+                      href={obj.domains}
+                      className="text-xs text-custom-black font-medium leading-[100%]"
+                    >
+                      {obj.domains}
+                    </Link>
+                  </td>
+                  <td className="pl-[15px] py-[10.5px] min-w-[175px]">
+                    <p className="text-xs text-custom-black font-medium leading-[100%]">
+                      {obj.country}
+                    </p>
+                  </td>
+                  <td className="flex items-center justify-between px-[15px] py-[10.5px] min-w-[267px]">
+                    <p className="text-xs text-custom-black font-medium leading-[100%]">
+                      {obj.name}
+                    </p>
+                    <button
+                      onClick={() => handleDelete(i)}
+                      className="cursor-pointer"
+                    >
+                      <DeleteIcon />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* Pagination Controls */}
       <div className="flex items-center lg:justify-end justify-center space-x-2 lg:mt-[33px] mt-7">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
