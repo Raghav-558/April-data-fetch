@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import QuestionOne from "@/components/QuestionOne";
 import QuestionTwo from "@/components/QuestionTwo";
+import { Suspense } from "react";
 
 async function getData() {
   try {
@@ -24,9 +25,11 @@ export default async function Home() {
   console.log("Data passed to Hero:", heroData);
   return (
     <>
-      <Hero heroContent={heroData} />
-      <QuestionOne />
-      <QuestionTwo/>
+      <Suspense>
+        <Hero heroContent={heroData} />
+        <QuestionOne />
+        <QuestionTwo />
+      </Suspense>
     </>
   );
 }
